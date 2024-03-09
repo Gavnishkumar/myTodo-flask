@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}
+Home
+{% endblock title %}
+{% block body %}
+
+<!-- // form to add ToDo -->
+<div class="container my-3">
+  <h3>Add ToDO's</h3>
+  <div class="mb-3">
+    <form action="/" method="POST">
+      <label for="exampleFormControlInput1" class="form-label">Title of task</label>
+      <input type="text" class="form-control" id="exampleFormControlInput1" name="title" placeholder="Title">
+      <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Description"
+        name="desc"></textarea>
+      <button type="submit" class="btn btn-primary my-3">Add Note</button>
+    </form>
+  </div>
+</div>
+<!-- These are all todos -->
+<div class="container my-3">
+  <div class="container d-flex justify-content-between">
+      <h3>My ToDo list</h3>
+  </div>
+  {% if allToDo|length ==0 %}
+  <h3>No Task</h3>
+  {% else %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Sno</th>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Time</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+      {% for todo in allToDo %}
+      
+      <tr>
+        <td scope="row">{{loop.index}}</td>
+        <td>{{todo.title}}</td>
+        <td>{{todo.desc}}</td>
+        <td>{{todo.date_created}}</td>
+        <td>
+          <a href="/delete/{{todo.sno}}" type="button" class="btn btn-danger">Delete</a>
+          <a href="/update/{{todo.sno}}" type="button" class="btn btn-success">Update</a>
+
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+
+</div>
+
+
+{% endblock body %}
